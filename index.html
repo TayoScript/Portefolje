@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Portfolio - Omotayo Farouk Lawal</title>
+		<script src="https://cdn.tailwindcss.com"></script>
+		<script src="./tailwind.config.js"></script>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="icon" href="./images/icon.png" type="images/x-icon" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet" />
+		<style>
+			/* body {
+				font-family: "Arial", sans-serif;
+				background-color: #f0f0f0;
+				margin: 0;
+				padding: 0;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				min-height: 100vh;
+			} */
+
+			.portfolio-container {
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: center;
+				max-width: 1200px;
+				padding: 20px;
+			}
+
+			.portfolio-item {
+				width: 260px;
+				height: 380px;
+				margin: 15px;
+				position: relative;
+				clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+				transition: transform 0.3s ease-in-out;
+			}
+
+			.portfolio-item:hover {
+				transform: scale(1.05);
+			}
+
+			.portfolio-item::before {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: inherit;
+				transition: transform 0.3s ease-in-out;
+			}
+
+			.portfolio-item:hover::before {
+				transform: scale(1.1);
+			}
+
+			.portfolio-content {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				text-align: center;
+				background: rgba(0, 0, 0, 0.7);
+				color: white;
+				opacity: 0;
+				transition: opacity 0.3s ease-in-out;
+			}
+
+			.portfolio-item:hover .portfolio-content {
+				opacity: 1;
+			}
+
+			.portfolio-title {
+				font-size: 1.5em;
+				margin-bottom: 5px;
+			}
+
+			.portfolio-category {
+				font-size: 0.9em;
+				margin-bottom: 15px;
+			}
+
+			.portfolio-link {
+				background-color: #eda40d;
+				color: black;
+				text-decoration: none;
+				padding: 8px 15px;
+				border-radius: 20px;
+				transition: background-color 0.3s ease-in-out;
+			}
+
+			.portfolio-link:hover {
+				background-color: #ffc107;
+			}
+
+			@media (max-width: 768px) {
+				.portfolio-item {
+					width: 200px;
+					height: 230px;
+				}
+			}
+
+			/* New Project Card Styles */
+			.project-card {
+				background-color: white;
+				border-radius: 12px;
+				overflow: hidden;
+				box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+				transition: all 0.3s ease;
+				height: 100%;
+				display: flex;
+				flex-direction: column;
+				border: 1px solid rgba(0, 0, 0, 0.1);
+			}
+
+			.dark .project-card {
+				background-color: #1e293b;
+				border: 1px solid rgba(255, 255, 255, 0.1);
+			}
+
+			.project-card:hover {
+				transform: translateY(-8px);
+				box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+			}
+
+			.project-image-container {
+				position: relative;
+				overflow: hidden;
+				height: 220px;
+			}
+
+			.project-image {
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				transition: transform 0.5s ease;
+			}
+
+			.project-card:hover .project-image {
+				transform: scale(1.05);
+			}
+
+			.project-overlay {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.7));
+				opacity: 0;
+				display: flex;
+				align-items: flex-end;
+				padding: 20px;
+				transition: opacity 0.3s ease;
+			}
+
+			.project-card:hover .project-overlay {
+				opacity: 1;
+			}
+
+			.project-tech-stack {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 8px;
+			}
+
+			.tech-tag {
+				background-color: #eda40d;
+				color: black;
+				font-size: 0.75rem;
+				padding: 4px 10px;
+				border-radius: 20px;
+				font-weight: 500;
+			}
+
+			.project-details {
+				padding: 24px;
+				flex-grow: 1;
+				display: flex;
+				flex-direction: column;
+			}
+
+			.project-title {
+				font-size: 1.25rem;
+				font-weight: 600;
+				margin-bottom: 12px;
+				color: #333;
+			}
+
+			.dark .project-title {
+				color: white;
+			}
+
+			.project-description {
+				font-size: 0.95rem;
+				color: #666;
+				margin-bottom: 20px;
+				flex-grow: 1;
+				line-height: 1.5;
+			}
+
+			.dark .project-description {
+				color: #cbd5e1;
+			}
+
+			.project-links {
+				display: flex;
+				gap: 12px;
+				margin-top: auto;
+			}
+
+			.project-link {
+				display: flex;
+				align-items: center;
+				gap: 6px;
+				font-size: 0.9rem;
+				font-weight: 500;
+				padding: 8px 16px;
+				border-radius: 8px;
+				transition: all 0.2s ease;
+			}
+
+			.primary-link {
+				background-color: #eda40d;
+				color: black;
+			}
+
+			.primary-link:hover {
+				background-color: #ffc107;
+			}
+
+			.secondary-link {
+				background-color: transparent;
+				color: #666;
+				border: 1px solid #ddd;
+			}
+
+			.dark .secondary-link {
+				color: #cbd5e1;
+				border-color: #475569;
+			}
+
+			.secondary-link:hover {
+				background-color: #f5f5f5;
+			}
+
+			.dark .secondary-link:hover {
+				background-color: #334155;
+			}
+
+			@media (max-width: 768px) {
+				.project-image-container {
+					height: 180px;
+				}
+			}
+		</style>
+	</head>
+	<body class="overflow-x-hidden font-Outfit leading-6 dark:bg-darkTheme dark:text-white bg-[url('./images/page-bg.png')] bg-cover">
+		<div class="fixed top-0 right-0 w-full -z-10 translate-y-[-80%]">
+			<img src="#" alt="" class="w-full opacity-5" />
+		</div>
+		<nav class="w-full fixed px-5 lg:px-8 xl:px-[8%] py-4 flex items-center justify-between z-50">
+			<ul class="hidden md:flex items-center gap-6 lg:gap-8 rounded-full px-12 py-3 bg-white shadow-sm bg-opacity-50 font-Outfit dark:border dark:border-white/50 dark:bg-transparent">
+				<li><a href="#">Hjem</a></li>
+				<li><a href="#about">Om meg</a></li>
+				<li><a href="#work">Prosjekter</a></li>
+			</ul>
+			<div class="flex items-center gap-4">
+				<button onclick="toggleTheme()">
+					<img src="./images/moon.svg" alt="Moon Icon" class="w-5 dark:hidden" />
+					<img src="./images/sun.svg" alt="Sun Icon" class="w-6 hidden dark:block" />
+				</button>
+				<a href="#contact" class="hidden lg:flex items-center gap-3 px-10 py-2.5 border border-gray-500 rounded-full ml-4 font-Outfit dark:border-white/50 hover:bg-black/10 duration-500"
+					>Contact
+					<img src="./images/arrow-right.svg" alt="Phone Icon" class="w-4 dark:hidden" />
+					<img src="./images/arrow-right-white.svg" alt="Phone Icon" class="w-4 hidden dark:block"
+				/></a>
+				<button class="block md:hidden ml-3" onclick="openSideMenu()">
+					<img src="./images/menu.svg" alt="Mobile Menu" class="w-6 dark:hidden" />
+					<img src="./images/menu-white.svg" alt="Mobile Menu" class="w-6 hidden dark:block" />
+				</button>
+			</div>
+
+			<ul id="sideMenu" class="flex md:hidden flex-col items-center justify-center gap-4 px-10 py-20 fixed -right-64 top-0 bottom-0 w-64 z-50 h-screen bg-rose-50 transition duration-500 font-Outfit dark:bg-darkHover dark:text-white">
+				<div class="absolute right-6 top-5" onclick="closeSideMenu()">
+					<img src="./images/close.svg" alt="close side menu" class="w-6 cursor-pointer dark:hidden" />
+					<img src="./images/close-dark.svg" alt="close side menu" class="w-6 cursor-pointer hidden dark:block" />
+				</div>
+				<li><a href="#" onclick="closeSideMenu()">Hjem</a></li>
+				<li><a href="#about" onclick="closeSideMenu()">Om meg</a></li>
+				<li><a href="#work" onclick="closeSideMenu()">Prosjekter</a></li>
+				<li><a href="#contact" onclick="closeSideMenu()">Kontakt meg</a></li>
+			</ul>
+		</nav>
+
+		<div id="main" class="w-11/12 max-w-3xl text-center mx-auto h-screen flex flex-col items-center justify-center gap-2" data-scroll-controller>
+		
+			<img src="./images/profil_pic.png" alt="Profile Image" class="rounded-full w-32 h-32 object-cover mx-auto shadow shadow-sm shadow-black animate-bounce-slow" data-control />
+		
+			<h1 class="text-3xl sm:text-5xl font-Outfit" data-control>Full Stack Utvikler</h1>
+		
+			<div id="skills" class="w-full px-[12%] scroll-mt-20">
+				<div class="flex flex-col md:flex-row justify-around my-6">
+					 <!-- God kjennskap til -->
+  <div class="flex-1 mx-4">
+    <h4 class="text-3xl font-Outfit">God kjennskap til:</h4>
+    <div class="flex flex-wrap justify-center gap-4 mt-4">
+        <div class="flex flex-col items-center">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" title="React" class="w-8 h-8" />
+            <span class="text-sm">React</span>
+        </div>
+        <div class="flex flex-col items-center">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" title="Python" class="w-8 h-8" />
+            <span class="text-sm">Python</span>
+        </div>
+        <div class="flex flex-col items-center">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" alt="Django" title="Django" class="w-8 h-8" />
+            <span class="text-sm">Django</span>
+        </div>
+        <div class="flex flex-col items-center">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" alt="C++" title="C++" class="w-8 h-8" />
+            <span class="text-sm">C++</span>
+        </div>
+        <div class="flex flex-col items-center">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="Javascript" title="Javascript" class="w-8 h-8" />
+            <span class="text-sm">JavaScript</span>
+        </div>
+        <div class="flex flex-col items-center">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js" title="Node.js" class="w-8 h-8" />
+            <span class="text-sm">Node.js</span>
+        </div>
+        <div class="flex flex-col items-center">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg" alt="Kotlin" title="Kotlin" class="w-8 h-8" />
+            <span class="text-sm">Kotlin</span>
+        </div>
+        <div class="flex flex-col items-center">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML" title="HTML" class="w-8 h-8" />
+            <span class="text-sm">HTML</span>
+        </div>
+        <div class="flex flex-col items-center">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS" title="CSS" class="w-8 h-8" />
+            <span class="text-sm">CSS</span>
+        </div>
+    </div>
+  </div>
+
+		<!-- Erfaring med -->
+		<div class="flex-1 mx-4 mt-10 md:mt-0">
+			<h4 class="text-3xl font-Outfit">Erfaring med:</h4>
+			<div class="flex flex-wrap justify-center gap-4 mt-4">
+				<div class="flex flex-col items-center">
+					<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java" title="Java" class="w-8 h-8" />
+					<span class="text-sm">Java</span>
+				</div>
+				<div class="flex flex-col items-center">
+					<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg" alt="Golang" title="Golang" class="w-8 h-8" />
+					<span class="text-sm">Golang</span>
+				</div>
+				<div class="flex flex-col items-center">
+					<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" alt="C" title="C" class="w-8 h-8" />
+					<span class="text-sm">C</span>
+				</div>
+				<div class="flex flex-col items-center">
+					<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/haskell/haskell-original.svg" alt="Haskell" title="Haskell" class="w-8 h-8" />
+					<span class="text-sm">Haskell</span>
+				</div>
+				<div class="flex flex-col items-center">
+					<img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/rust/rust-original.svg" alt="Rust" title="Rust" class="w-8 h-8" />
+					<span class="text-sm">Rust</span>
+				</div>				
+			</div>
+		</div>
+		</div>
+				 <div class="flex flex-col sm:flex-row items-center gap-4 mb-4">
+					<a href="#work" class="px-10 py-3 border rounded-full bg-gradient-to-r from-[#eda40d] to-[#c17e0a] text-white flex items-center gap-2 dark:border-transparent">
+						Mine prosjekter <img src="./images/arrow-right-white.svg" alt="contact icon" class="w-5" />
+					</a>
+					<a href="./assets/OmotayoCv.pdf" target="_blank" class="px-10 py-3 border rounded-full border-gray-500 flex items-center gap-2 bg-white dark:text-black hover:opacity-85 duration-500">
+						 CV <img src="./images/download.svg" alt="contact icon" class="w-5" />
+					</a>
+					<a href="./assets/VitnemålBachelor.pdf" target="_blank" class="px-10 py-3 border rounded-full border-gray-500 flex items-center gap-2 bg-white dark:text-black hover:opacity-85 duration-500">
+						vitnemål <img src="./images/download.svg" alt="contact icon" class="w-5" />
+					</a>
+				</div>
+			</div>
+		
+		</div>
+
+			<!-- About Me Section -->
+<div id="about" class="w-full px-[12%] py-10 scroll-mt-20">
+    <h2 class="text-center text-5xl font-Outfit">About Me</h2>
+
+    <div class="flex w-full md:max-w-6xl mx-auto flex-col items-center gap-10 my-20 text-center">
+        <div class="max-w-3xl font-Outfit">
+            <p class="mb-6">
+                Jeg er en utvikler som har avsluttet studiene ved NTNU – Norges teknisk-naturvitenskapelige universitet med en bachelorgrad i programmering. Gjennom studiene utviklet jeg en solid grunnleggende kunnskap i softwareutvikling og systemdesign, med praktisk erfaring i flere programmeringsspråk. Jeg hadde muligheten til å arbeide på både individuelle og gruppeserprokjer, fra mobilapper til fullstendige webbaserte løsninger.
+            </p>
+            <p class="mb-6">
+                Studiene ved NTNU har også lært meg hvor viktig det er å skrive ren, vedlikeholdbar kode og holde seg oppdatert på moderne utviklingspraksis. Jeg er passionert for å bygge effektive og brukerfrie programvare, og jeg er alltid ivrig til å lære nye teknologier og ta på utfordrende prosjekter.
+            </p>
+
+            <!-- Contact Info -->
+            <div class="space-y-1">
+                <p><strong>Navn:</strong> Omotayo Farouk Lawal</p>
+                <p><strong>Email:</strong> Lawaltayo9@gmail.com</p>
+                <p><strong>Telefon:</strong> +47 45570958</p>
+                <p><strong>Adresse:</strong> Oslo, Norge – Lindeberglia 14, 1069</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+		<!-- My Work Section -->
+<div id="work" class="w-full px-[12%] py-10 scroll-mt-20">
+    <h2 class="text-center text-5xl font-Outfit max-w-2xl mx-auto mt-5 mb-12">Mine prosjekter</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+        <!-- Project 1: Rental Platform -->
+        <div class="project-card group">
+            <div class="project-image-container">
+                <img src="./images/seeek.png" alt="Rental Platform" class="project-image" />
+                <div class="project-overlay">
+                    <div class="project-tech-stack">
+                        <span class="tech-tag">Vue</span>
+                        <span class="tech-tag">Node</span>
+                        <span class="tech-tag">Firebase</span>
+                        <span class="tech-tag">Gemini AI</span>
+                    </div>
+                </div>
+            </div>
+            <div class="project-details">
+                <h3 class="project-title">Leieplattform</h3>
+                <p class="project-description">En leieplattform med søk, autentisering og AI-basert kvalitetskontroll og automatisering.</p>
+                <div class="project-links">
+                    <a href="https://seeek-57fd.vercel.app/" target="_blank" class="project-link primary-link">
+                        <span>Se nettside</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Project 2: Bachelor Thesis -->
+        <div class="project-card group">
+            <div class="project-image-container">
+                <img src="./images/gnist.png" alt="Bachelor Thesis" class="project-image" />
+                <div class="project-overlay">
+                    <div class="project-tech-stack">
+                        <span class="tech-tag">React</span>
+                        <span class="tech-tag">Django</span>
+                        <span class="tech-tag">MySQL</span>
+                        <span class="tech-tag">Auth0</span>
+                        <span class="tech-tag">AWS</span>
+                    </div>
+                </div>
+            </div>
+            <div class="project-details">
+                <h3 class="project-title">Bacheloroppgave / skoleprosjekt</h3>
+                <p class="project-description">Bygget for Fyrverkeriet Youth House for å administrere medlemmer, aktiviteter, statistikk. Login: test@gmail.com / Password-1.</p>
+                <div class="project-links">
+                    <a href="https://gnist-frontend.onrender.com" target="_blank" class="project-link primary-link">
+                        <span>Se nettside</span>
+                    </a>
+                    <a href="https://github.com/TayoScript/Bachelor-oppgave" target="_blank" class="project-link secondary-link">
+                        <span>Kode</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Project 3: Orienteering App -->
+        <div class="project-card group">
+            <div class="project-image-container">
+                <img src="./images/tur-orienterings.png" alt="Orienteering App" class="project-image" />
+                <div class="project-overlay">
+                    <div class="project-tech-stack">
+                        <span class="tech-tag">Node.js</span>
+                        <span class="tech-tag">React</span>
+                        <span class="tech-tag">MongoDB</span>
+                        <span class="tech-tag">Express</span>
+                    </div>
+                </div>
+            </div>
+            <div class="project-details">
+                <h3 class="project-title">Orienteering App / skoleprosjekt</h3>
+                <p class="project-description">En web app som lar brukerne publisere og navigere orienteeringkurser og finne beste ruter.</p>
+                <div class="project-links">
+                    <a href="https://tur-orienterings-app.onrender.com/" target="_blank" class="project-link primary-link">
+                        <span>Se nettside</span>
+                    </a>
+                    <a href="https://github.com/TayoScript/Tur-orienterings-app" target="_blank" class="project-link secondary-link">
+                        <span>Kode</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GitHub CTA -->
+    <a href="https://github.com/TayoScript" target="_blank"
+       class="w-max flex items-center justify-center gap-2 text-gray-700 border-[0.5px] border-gray-700 rounded-full py-3 px-10 mx-auto my-20 hover:bg-black/10 duration-500 dark:text-white dark:border-white dark:hover:bg-darkHover">
+        Se flere prosjekter
+        <img src="./images/arrow-right-white.svg" alt="" class="w-4 hidden dark:block" />
+        <img src="./images/arrow-right.svg" alt="" class="w-4 dark:hidden" />
+    </a>
+</div>
+
+
+		<!----------- contact section ------------->
+		<div id="contact" class="w-full px-[12%] py-10 scroll-mt-20">
+			<h2 class="text-center text-5xl max-w-2xl mx-auto mt-5 mb-12 font-Outfit">Kontakt meg</h2>
+			<form action="https://api.web3forms.com/submit" method="POST" class="max-w-2xl mx-auto">
+				<input type="hidden" name="access_key" value="cf9615fd-9901-4e6b-a50e-241719bbcda6" />
+
+				<div class="grid grid-cols-auto gap-6 mt-10 mb-8">
+					<input type="text" name="name" placeholder="Enter your name" class="flex-1 p-3 outline-none border-[0.5px] border-gray-400 rounded-md bg-white dark:bg-darkHover/30 dark:border-white/90" required />
+					<input type="email" name="email" placeholder="Enter your email" class="flex-1 p-3 outline-none border-[0.5px] border-gray-400 rounded-md bg-white dark:bg-darkHover/30 dark:border-white/90" required />
+				</div>
+				<textarea rows="6" name="message" id="" placeholder="Enter your message" class="w-full p-4 outline-none border-[0.5px] border-gray-400 rounded-md bg-white mb-6 dark:bg-darkHover/30 dark:border-white/90"></textarea>
+				<button type="submit" class="py-3 px-8 w-max flex items-center justify-between gap-2 bg-black/80 text-white rounded-full mx-auto hover:bg-black duration-500 dark:bg-transparent dark:border-[0.5px] dark:hover:bg-darkHover">Submit Now <img src="./images/arrow-right-white.svg" alt="" class="w-4" /></button>
+			</form>
+		</div>
+
+		<!--- footer -->
+		<div class="mt-20">
+			<a href="/index.html">
+				
+			</a>
+			<div class="text-center flex items-center border-t border-gray-400 mx-[10%] mt-12 py-6">
+				<p class="mx-auto">@Omotayo farouk lawal. All rights reserved.</p>
+				<ul class="fixed bottom-10 sm:bottom-28 right-4 sm:right-10 flex flex-col gap-2">
+					<!-- <ul class="flex items-center gap-2 justify-center mt-4 sm:mt-0"> -->
+					<li class="dark:bg-gray-300 hover:bg-gray-100 rounded-md">
+						<a href="https://github.com/TayoScript"><img src="./images/github.png" alt="Github Icon" width="48px" /></a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		
+
+		<script src="./script.js"></script>
+	</body>
+</html>
